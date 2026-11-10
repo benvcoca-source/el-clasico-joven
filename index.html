@@ -172,6 +172,44 @@ section { padding: 72px 0 0; }
 .fx.next .fx-main { border: 2px dashed var(--lime); background: rgba(215,234,70,.05); grid-template-columns: 1fr; text-align: center; padding: 30px 20px; gap: 6px; }
 .fx.next .nx { font-family: var(--display); font-size: clamp(34px, 6vw, 64px); line-height: .95; text-wrap: balance; }
 
+/* confirmed announcement: storm panel */
+.storm { position: relative; isolation: isolate; overflow: hidden; margin-top: 28px; border-radius: 8px; border: 1px solid var(--lime); padding: 52px 20px 40px; text-align: center; background: #060e0b; }
+.storm::before { content: ""; position: absolute; inset: 0; z-index: -3; background: var(--img-hold) center / cover; filter: grayscale(1) contrast(1.2) brightness(.42); }
+.storm::after { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse at 50% 0%, rgba(215,234,70,.22), transparent 62%), linear-gradient(180deg, rgba(6,14,11,.55), rgba(6,14,11,.92)); }
+.storm canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.flash { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; mix-blend-mode: screen; background: radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.95), rgba(215,234,70,.4) 45%, transparent 72%); }
+.flash.on { animation: flash .6s ease-out; }
+@keyframes flash { 0% { opacity: 0; } 8% { opacity: .85; } 18% { opacity: .15; } 28% { opacity: .6; } 100% { opacity: 0; } }
+.storm-in { position: relative; z-index: 2; display: grid; justify-items: center; gap: 18px; }
+.faceoff { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 3vw, 30px); width: 100%; }
+.faceoff svg.crest { width: clamp(58px, 9vw, 92px); height: auto; filter: drop-shadow(0 0 18px rgba(215,234,70,.35)); }
+.faceoff .arc { width: clamp(90px, 24vw, 260px); height: 56px; overflow: visible; }
+.arc path { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.arc .g { stroke: #D7EA46; stroke-width: 5; opacity: .45; filter: blur(3px); }
+.arc .c { stroke: #fff; stroke-width: 2; stroke-dasharray: 22 8; animation: arcrun .5s linear infinite, arcflick 3.4s steps(1) infinite; }
+@keyframes arcrun { to { stroke-dashoffset: -30; } }
+@keyframes arcflick { 0%, 100% { opacity: 1; } 40% { opacity: .35; } 46% { opacity: 1; } 78% { opacity: .5; } 82% { opacity: 1; } }
+.date { display: grid; justify-items: center; gap: 0; padding: 4px 18px; border-radius: 6px; line-height: .86; color: var(--ink); animation: glow 2.6s ease-in-out infinite alternate, flick 8s linear infinite; }
+.date .dow { font-family: var(--mono); font-size: clamp(12px, 2.2vw, 16px); letter-spacing: .4em; color: var(--lime); margin-bottom: 10px; }
+.date .dd { font-family: var(--display); font-size: clamp(64px, 19vw, 210px); white-space: nowrap; letter-spacing: .01em; }
+.date .tm { font-family: var(--display); font-size: clamp(40px, 8vw, 84px); letter-spacing: .12em; color: var(--lime); margin-top: 6px; }
+.date.slam { animation: slam .7s cubic-bezier(.2, 1.3, .3, 1), glow 2.6s .7s ease-in-out infinite alternate, flick 8s linear infinite; }
+@keyframes slam { 0% { transform: scale(1.45); filter: blur(8px); } 55% { transform: scale(.97); filter: none; } 100% { transform: scale(1); } }
+@keyframes glow { from { text-shadow: 0 0 8px rgba(215,234,70,.55), 0 0 28px rgba(215,234,70,.25); } to { text-shadow: 0 0 14px rgba(215,234,70,.95), 0 0 56px rgba(215,234,70,.55), 0 0 110px rgba(226,112,58,.3); } }
+@keyframes flick { 0%, 91%, 94%, 97%, 100% { opacity: 1; } 92% { opacity: .72; } 95% { opacity: .55; } 96% { opacity: 1; } }
+.storm.shake .date { animation: shake .38s linear, glow 2.6s ease-in-out infinite alternate; }
+@keyframes shake { 0%, 100% { transform: translate(0); } 15% { transform: translate(-5px, 2px); } 35% { transform: translate(6px, -3px); } 55% { transform: translate(-4px, -2px); } 75% { transform: translate(3px, 3px); } }
+.legend { display: grid; gap: 6px; max-width: 38ch; margin-top: 6px; }
+.legend p { font-family: var(--display); font-size: clamp(26px, 4.6vw, 44px); line-height: 1; letter-spacing: .03em; text-wrap: balance; }
+.legend p:nth-child(1) { color: var(--clay); } .legend p:nth-child(2) { color: var(--lime); } .legend p:nth-child(3) { color: var(--ink); }
+.legend.play p { animation: rise .7s cubic-bezier(.2, .8, .2, 1) backwards; }
+.legend.play p:nth-child(2) { animation-delay: .5s; } .legend.play p:nth-child(3) { animation-delay: 1s; }
+@keyframes rise { from { opacity: .2; transform: translateY(12px); } }
+.storm .cd { margin-top: 10px; }
+.storm .cd div { background: rgba(10,23,18,.72); backdrop-filter: blur(4px); border-color: rgba(215,234,70,.4); }
+.storm .cd .sec b { animation: tick 1s steps(1) infinite; }
+@keyframes tick { 0% { color: var(--lime); } 20% { color: var(--ink); } }
+
 footer { margin-top: 90px; border-top: 1px solid var(--line); padding: 30px 0 60px; color: var(--muted); font-size: 14px; }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
 
@@ -200,9 +238,16 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .tm svg { width: 58px; }
   .tl { padding-left: 30px; } .fx::before { left: -29px; } .tl::before { left: 7px; }
   .court { width: 150%; }
+  .storm { padding: 40px 14px 30px; }
+  .storm .cd { gap: 8px; flex-wrap: nowrap; width: 100%; }
+  .storm .cd div { min-width: 0; flex: 1; padding: 10px 4px; }
+  .storm .cd b { font-size: 36px; }
+  .faceoff .arc { height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ticker div { animation: none; }
+  .date, .date.slam, .storm.shake .date, .arc .c, .legend.play p, .storm .cd .sec b { animation: none; }
+  .date { text-shadow: 0 0 14px rgba(215,234,70,.8), 0 0 50px rgba(215,234,70,.4); }
   * { transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
 </style>
@@ -280,8 +325,8 @@ const DATA = {
   ],
   nextMatch: {
     options: ["2026-11-18", "2026-11-25"],
-    confirmed: null,
-    time: null
+    confirmed: "2026-11-18",
+    time: "20:00"
   },
   ticker: [
     "FRIENDS OFF COURT, RIVALS BETWEEN THE GLASS",
@@ -300,6 +345,9 @@ const parse = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y
 const daysTo = s => Math.max(0, Math.ceil((parse(s) - new Date()) / 864e5));
 const fmtDate = s => { const d = parse(s); return `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()].toUpperCase()}`; };
 const COLOR = { A: "#E2703A", B: "#D7EA46" };
+const fmtTime = t => { if (!t) return ""; const [h, m] = t.split(":").map(Number); return `${((h + 11) % 12) + 1}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`; };
+const ordinal = n => n + (["th", "st", "nd", "rd"][(n % 100 >> 3 ^ 1) && n % 10 < 4 ? n % 10 : 0]);
+const NUM = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
 function crest(color, ini) {
   return `<svg viewBox="0 0 100 120" role="img" aria-label="Crest ${ini.join(" and ")}">
@@ -349,11 +397,12 @@ function renderScore() {
   const chips = [`<span class="chip"><i>Sessions</i><span class="tabular"><span class="clay">${S.sA}</span> – <span class="lime">${S.sB}</span></span></span>`];
   if (last && last.buyer) chips.push(`<span class="chip"><i>Last beers</i>${TEAMS[last.buyer].name} paid</span>`);
   chips.push(`<span class="chip"><i>Series leader</i>${lead ? TEAMS[lead].name : "Level"}</span>`);
+  if (DATA.nextMatch.confirmed) chips.push(`<span class="chip"><i>Next Clásico</i>${fmtDate(DATA.nextMatch.confirmed)}${DATA.nextMatch.time ? " · " + fmtTime(DATA.nextMatch.time) : ""}</span>`);
   $("chips").innerHTML = chips.join("");
 }
 function renderTicker() {
   const nm = DATA.nextMatch;
-  const when = nm.confirmed ? `NEXT CLÁSICO ${fmtDate(nm.confirmed)}` : `NEXT CLÁSICO ${nm.options.map(fmtDate).join(" OR ")}`;
+  const when = nm.confirmed ? `NEXT CLÁSICO ${fmtDate(nm.confirmed)}${nm.time ? " · " + fmtTime(nm.time).replace(":00", "") : ""}` : `NEXT CLÁSICO ${nm.options.map(fmtDate).join(" OR ")}`;
   const items = [when, `${TEAMS.A.name.toUpperCase()} ${S.mA} – ${S.mB} ${TEAMS.B.name.toUpperCase()}`, ...DATA.ticker];
   const row = items.map(t => `<span>${t}</span>`).join("");
   $("ticker").innerHTML = row + row + row + row;
@@ -364,21 +413,36 @@ function renderNext() {
   const nm = DATA.nextMatch, w = $("nextwrap");
   if (nm.confirmed) {
     const d = parse(nm.confirmed);
+    const h = holder, ch = h ? (h === "A" ? "B" : "A") : null, st = h ? S["st" + h] : 0;
+    const lines = h && st
+      ? [`Can ${TEAMS[h].name} make it ${NUM[st + 1] || st + 1}?`, `Will ${TEAMS[ch].name} change history?`]
+      : [`Who blinks first, ${TEAMS.A.name}?`, `Will ${TEAMS.B.name} change history?`];
+    lines.push(`One night. ${DAYS_LONG[d.getDay()].charAt(0) + DAYS_LONG[d.getDay()].slice(1).toLowerCase()} the ${ordinal(d.getDate())}. We find out.`);
+    const zig = "M0 28 L26 10 L50 44 L78 6 L106 46 L134 12 L162 44 L190 8 L216 40 L240 28";
     w.innerHTML = `
-      <div class="eyebrow">Matchday confirmed</div>
+      <div class="eyebrow">Matchday confirmed · Jornada ${S.log.length + 1}</div>
       <h2 class="sec">¡Hay Clásico!</h2>
-      <div class="locked">
-        <div class="eyebrow">${TEAMS.A.name} vs ${TEAMS.B.name}</div>
-        <div class="dt">${fmtDate(nm.confirmed)}</div>
-        <div class="eyebrow" style="margin-top:6px">${nm.time ? "Kickoff " + nm.time : "Kickoff time to be confirmed"}</div>
-        <div class="cd" id="cd"></div>
+      <div class="storm" id="storm">
+        <canvas id="bolt" aria-hidden="true"></canvas><div class="flash" id="flash" aria-hidden="true"></div>
+        <div class="storm-in">
+          <div class="faceoff">${crest(COLOR.A, TEAMS.A.initials).replace("<svg ", '<svg class="crest" ')}
+            <svg class="arc" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true"><path class="g" d="${zig}"/><path class="c" d="${zig}"/></svg>
+            ${crest(COLOR.B, TEAMS.B.initials).replace("<svg ", '<svg class="crest" ')}</div>
+          <button type="button" class="date" id="dateBtn" aria-label="${fmtDate(nm.confirmed)}${nm.time ? " at " + fmtTime(nm.time) : ""}. Tap for lightning.">
+            <span class="dow">${DAYS_LONG[d.getDay()]}</span><span class="dd">${d.getDate()} ${MONTHS[d.getMonth()].toUpperCase()}</span>${nm.time ? `<span class="tm">${fmtTime(nm.time)}</span>` : ""}
+          </button>
+          <div class="legend" id="legend">${lines.map(l => `<p>${l}</p>`).join("")}</div>
+          <div class="cd" id="cd"></div>
+        </div>
       </div>`;
+    const target = () => nm.time ? new Date(nm.confirmed + "T" + nm.time) : d;
     const tick = () => {
-      const ms = Math.max(0, (nm.time ? new Date(nm.confirmed + "T" + nm.time) : d) - new Date());
-      const v = [["Days", Math.floor(ms / 864e5)], ["Hours", Math.floor(ms / 36e5) % 24], ["Min", Math.floor(ms / 6e4) % 60], ["Sec", Math.floor(ms / 1e3) % 60]];
-      $("cd").innerHTML = v.map(([l, n]) => `<div><b class="tabular">${String(n).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
+      const ms = Math.max(0, target() - new Date());
+      const v = [["Days", Math.floor(ms / 864e5), ""], ["Hours", Math.floor(ms / 36e5) % 24, ""], ["Min", Math.floor(ms / 6e4) % 60, ""], ["Sec", Math.floor(ms / 1e3) % 60, "sec"]];
+      $("cd").innerHTML = v.map(([l, n, c]) => `<div class="${c}"><b class="tabular">${String(n).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
     };
     tick(); setInterval(tick, 1000);
+    initStorm();
     return;
   }
   const ticket = (s, side) => {
@@ -393,6 +457,68 @@ function renderNext() {
     <h2 class="sec">The next Clásico</h2>
     <div class="poster">${ticket(d1, "l")}<div class="vs">OR</div>${ticket(d2, "r")}</div>
     <div class="vote-note">${chat}<span>Vote in the WhatsApp group to lock the date.</span></div>`;
+}
+
+/* ---------- lightning ---------- */
+function initStorm() {
+  const box = $("storm"), cv = $("bolt"), fl = $("flash"), date = $("dateBtn"), legend = $("legend");
+  if (!box || !cv) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  const ctx = cv.getContext("2d");
+  let W = 0, H = 0, bolts = [], running = false, visible = false, started = false;
+  const size = () => {
+    const r = box.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  size(); window.addEventListener("resize", size);
+  const jag = (x0, y0, x1, y1, disp, out) => {
+    if (disp < 4) { out.push([x1, y1]); return; }
+    const mx = (x0 + x1) / 2 + (Math.random() - .5) * disp, my = (y0 + y1) / 2 + (Math.random() - .5) * disp * .4;
+    jag(x0, y0, mx, my, disp / 2, out); jag(mx, my, x1, y1, disp / 2, out);
+  };
+  const make = () => {
+    const x0 = W * (.12 + Math.random() * .76), x1 = x0 + (Math.random() - .5) * W * .28, y1 = H * (.5 + Math.random() * .22);
+    const main = [[x0, -10]]; jag(x0, -10, x1, y1, H * .34, main);
+    const branches = [];
+    for (let i = 0; i < 3; i++) {
+      const k = Math.floor(main.length * (.2 + Math.random() * .55)), [bx, by] = main[k], b = [[bx, by]];
+      jag(bx, by, bx + (Math.random() - .5) * W * .3, by + H * (.14 + Math.random() * .24), H * .15, b); branches.push(b);
+    }
+    return { main, branches, born: performance.now(), life: 560, color: Math.random() < .72 ? "#D7EA46" : "#E2703A" };
+  };
+  const path = pts => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); };
+  const frame = now => {
+    ctx.clearRect(0, 0, W, H);
+    bolts = bolts.filter(b => now - b.born < b.life);
+    bolts.forEach(b => {
+      const age = (now - b.born) / b.life;
+      let a = age < .12 ? 1 : Math.max(0, 1 - (age - .12) / .88);
+      if (age > .14 && age < .4 && Math.floor(age * 28) % 2) a *= .5;
+      ctx.lineJoin = "round"; ctx.lineCap = "round";
+      [[b.main, 1], ...b.branches.map(x => [x, .55])].forEach(([pts, k]) => {
+        ctx.shadowColor = b.color; ctx.shadowBlur = 26 * k;
+        ctx.strokeStyle = b.color; ctx.globalAlpha = a * .55; ctx.lineWidth = 6 * k; path(pts);
+        ctx.shadowBlur = 8; ctx.strokeStyle = "#fff"; ctx.globalAlpha = a; ctx.lineWidth = 2 * k; path(pts);
+      });
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    });
+    if (bolts.length) requestAnimationFrame(frame); else { running = false; ctx.clearRect(0, 0, W, H); }
+  };
+  const strike = () => {
+    size(); bolts.push(make());
+    if (Math.random() < .5) setTimeout(() => { bolts.push(make()); }, 110);
+    fl.classList.remove("on"); void fl.offsetWidth; fl.classList.add("on");
+    box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+    if (!running) { running = true; requestAnimationFrame(frame); }
+  };
+  const loop = () => setTimeout(() => { if (visible && !document.hidden) strike(); loop(); }, 3800 + Math.random() * 3600);
+  date.addEventListener("click", strike);
+  new IntersectionObserver(es => es.forEach(e => {
+    visible = e.isIntersecting;
+    if (visible && !started) { started = true; date.classList.add("slam"); legend.classList.add("play"); setTimeout(strike, 120); loop(); }
+  }), { threshold: .35 }).observe(box);
+  window.__strike = strike;
 }
 
 /* ---------- the record ---------- */
@@ -434,7 +560,7 @@ function renderBeers() {
 /* ---------- match log ---------- */
 function renderLog() {
   const nm = DATA.nextMatch;
-  const nextLabel = nm.confirmed ? fmtDate(nm.confirmed) : nm.options.map(fmtDate).join(" or ");
+  const nextLabel = nm.confirmed ? fmtDate(nm.confirmed) + (nm.time ? " · " + fmtTime(nm.time) : "") : nm.options.map(fmtDate).join(" or ");
   const upcoming = `<article class="fx next"><div class="fx-meta"><span>Jornada ${S.log.length + 1}</span><span>Next fixture</span></div>
     <div class="fx-main"><div class="eyebrow">${TEAMS.A.name} vs ${TEAMS.B.name}</div><div class="nx">${nextLabel}</div>
     <div class="hint">${nm.confirmed ? "Locked in. See you on court." : "Vote in the WhatsApp group to lock the date."}</div></div></article>`;
