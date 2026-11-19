@@ -172,43 +172,59 @@ section { padding: 72px 0 0; }
 .fx.next .fx-main { border: 2px dashed var(--lime); background: rgba(215,234,70,.05); grid-template-columns: 1fr; text-align: center; padding: 30px 20px; gap: 6px; }
 .fx.next .nx { font-family: var(--display); font-size: clamp(34px, 6vw, 64px); line-height: .95; text-wrap: balance; }
 
-/* confirmed announcement: storm panel */
-.storm { position: relative; isolation: isolate; overflow: hidden; margin-top: 28px; border-radius: 8px; border: 1px solid var(--lime); padding: 52px 20px 40px; text-align: center; background: #060e0b; }
-.storm::before { content: ""; position: absolute; inset: 0; z-index: -3; background: var(--img-hold) center / cover; filter: grayscale(1) contrast(1.2) brightness(.42); }
-.storm::after { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse at 50% 0%, rgba(215,234,70,.22), transparent 62%), linear-gradient(180deg, rgba(6,14,11,.55), rgba(6,14,11,.92)); }
-.storm canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-.flash { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; mix-blend-mode: screen; background: radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.95), rgba(215,234,70,.4) 45%, transparent 72%); }
-.flash.on { animation: flash .6s ease-out; }
-@keyframes flash { 0% { opacity: 0; } 8% { opacity: .85; } 18% { opacity: .15; } 28% { opacity: .6; } 100% { opacity: 0; } }
-.storm-in { position: relative; z-index: 2; display: grid; justify-items: center; gap: 18px; }
-.faceoff { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 3vw, 30px); width: 100%; }
-.faceoff svg.crest { width: clamp(58px, 9vw, 92px); height: auto; filter: drop-shadow(0 0 18px rgba(215,234,70,.35)); }
-.faceoff .arc { width: clamp(90px, 24vw, 260px); height: 56px; overflow: visible; }
-.arc path { fill: none; stroke-linejoin: round; stroke-linecap: round; }
-.arc .g { stroke: #D7EA46; stroke-width: 5; opacity: .45; filter: blur(3px); }
-.arc .c { stroke: #fff; stroke-width: 2; stroke-dasharray: 22 8; animation: arcrun .5s linear infinite, arcflick 3.4s steps(1) infinite; }
-@keyframes arcrun { to { stroke-dashoffset: -30; } }
-@keyframes arcflick { 0%, 100% { opacity: 1; } 40% { opacity: .35; } 46% { opacity: 1; } 78% { opacity: .5; } 82% { opacity: 1; } }
-.date { display: grid; justify-items: center; gap: 0; padding: 4px 18px; border-radius: 6px; line-height: .86; color: var(--ink); animation: glow 2.6s ease-in-out infinite alternate, flick 8s linear infinite; }
-.date .dow { font-family: var(--mono); font-size: clamp(12px, 2.2vw, 16px); letter-spacing: .4em; color: var(--lime); margin-bottom: 10px; }
-.date .dd { font-family: var(--display); font-size: clamp(64px, 19vw, 210px); white-space: nowrap; letter-spacing: .01em; }
-.date .tm { font-family: var(--display); font-size: clamp(40px, 8vw, 84px); letter-spacing: .12em; color: var(--lime); margin-top: 6px; }
-.date.slam { animation: slam .7s cubic-bezier(.2, 1.3, .3, 1), glow 2.6s .7s ease-in-out infinite alternate, flick 8s linear infinite; }
-@keyframes slam { 0% { transform: scale(1.45); filter: blur(8px); } 55% { transform: scale(.97); filter: none; } 100% { transform: scale(1); } }
-@keyframes glow { from { text-shadow: 0 0 8px rgba(215,234,70,.55), 0 0 28px rgba(215,234,70,.25); } to { text-shadow: 0 0 14px rgba(215,234,70,.95), 0 0 56px rgba(215,234,70,.55), 0 0 110px rgba(226,112,58,.3); } }
-@keyframes flick { 0%, 91%, 94%, 97%, 100% { opacity: 1; } 92% { opacity: .72; } 95% { opacity: .55; } 96% { opacity: 1; } }
-.storm.shake .date { animation: shake .38s linear, glow 2.6s ease-in-out infinite alternate; }
-@keyframes shake { 0%, 100% { transform: translate(0); } 15% { transform: translate(-5px, 2px); } 35% { transform: translate(6px, -3px); } 55% { transform: translate(-4px, -2px); } 75% { transform: translate(3px, 3px); } }
+/* confirmed announcement: the volcano */
+.volc { --mh: clamp(130px, 19vw, 210px); position: relative; isolation: isolate; overflow: hidden; margin-top: 28px; border-radius: 8px; border: 1px solid rgba(226,112,58,.7); text-align: center;
+  padding: 44px 20px calc(var(--mh) + 18px);
+  background: radial-gradient(ellipse at 50% 100%, rgba(226,112,58,.38), transparent 62%), linear-gradient(180deg, #06100c 0%, #0d0f0b 55%, #1a0d07 100%); }
+.volc canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.vflash { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; mix-blend-mode: screen; background: radial-gradient(ellipse at 50% 85%, rgba(255,226,160,.95), rgba(226,112,58,.45) 40%, transparent 72%); }
+.vflash.on { animation: vflash .8s ease-out; }
+@keyframes vflash { 0% { opacity: 0; } 10% { opacity: .8; } 30% { opacity: .3; } 100% { opacity: 0; } }
+.mount { position: absolute; left: 0; bottom: 0; width: 100%; height: var(--mh); z-index: 3; display: block; }
+.glow { position: absolute; left: 50%; bottom: calc(var(--mh) * .72); z-index: 2; width: clamp(200px, 34vw, 420px); height: 120px; transform: translate(-50%, 50%); pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, #fff6d8 0%, #F2B134 22%, rgba(226,112,58,.75) 46%, transparent 72%); filter: blur(6px); animation: crater 2.2s ease-in-out infinite alternate; }
+@keyframes crater { from { opacity: .7; transform: translate(-50%, 50%) scale(.94); } to { opacity: 1; transform: translate(-50%, 50%) scale(1.08); } }
+.volc.erupt .glow { opacity: 1; transform: translate(-50%, 50%) scale(1.6); animation: none; transition: transform .25s; }
+.lava { fill: none; stroke: url(#lavag); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 16 10; animation: flow 3s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -52; } }
+.volc-in { position: relative; z-index: 4; display: grid; justify-items: center; gap: 18px; }
+.volc.rumble .volc-in { animation: rumble .09s linear infinite; }
+.volc.erupt .volc-in { animation: jolt .55s linear; }
+@keyframes rumble { 0%, 100% { transform: translate(0); } 25% { transform: translate(-2px, 1px); } 50% { transform: translate(2px, -1px); } 75% { transform: translate(-1px, -1px); } }
+@keyframes jolt { 0%, 100% { transform: translate(0); } 12% { transform: translate(-6px, 3px); } 30% { transform: translate(7px, -4px); } 50% { transform: translate(-4px, -2px); } 70% { transform: translate(3px, 3px); } 85% { transform: translate(-2px, 1px); } }
+
+.heat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; max-width: 640px; }
+.hs { display: grid; gap: 6px; text-align: left; }
+.hs i { display: block; height: 8px; border-radius: 4px; background: rgba(239,243,233,.12); }
+.hs.done i { background: linear-gradient(90deg, #F2B134, #E2703A); }
+.hs.now i { background: linear-gradient(90deg, #E2703A, #ffe7a0, #fff); box-shadow: 0 0 14px rgba(242,177,52,.9); animation: pulsebar 1.2s ease-in-out infinite alternate; }
+@keyframes pulsebar { from { box-shadow: 0 0 6px rgba(242,177,52,.6); } to { box-shadow: 0 0 22px rgba(255,231,160,1); } }
+.hs b { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.hs span { font-family: var(--display); font-size: clamp(15px, 3vw, 26px); white-space: nowrap; letter-spacing: .06em; line-height: 1; color: var(--muted); }
+.hs.done b, .hs.done span { color: #F2B134; } .hs.now b, .hs.now span { color: #fff; }
+
+.faceoff { display: flex; align-items: center; justify-content: center; gap: clamp(10px, 3vw, 30px); width: 100%; }
+.faceoff svg.crest { width: clamp(58px, 9vw, 92px); height: auto; filter: drop-shadow(0 0 18px rgba(226,112,58,.45)); }
+.vsx { font-family: var(--display); font-size: clamp(34px, 6vw, 60px); letter-spacing: .08em; color: #F2B134; text-shadow: 0 0 18px rgba(226,112,58,.9); }
+.date { display: grid; justify-items: center; padding: 4px 18px; border-radius: 6px; line-height: .86; animation: heat 2.4s ease-in-out infinite alternate; }
+.date .dow { font-family: var(--mono); font-size: clamp(12px, 2.2vw, 16px); letter-spacing: .4em; color: var(--clay); margin-bottom: 10px; }
+.date .dd { font-family: var(--display); font-size: clamp(64px, 19vw, 210px); letter-spacing: .01em; white-space: nowrap; background: linear-gradient(180deg, #fff 4%, #ffe7a0 36%, #F2B134 64%, #E2703A 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.date .tm { font-family: var(--display); font-size: clamp(40px, 8vw, 84px); letter-spacing: .12em; color: #F2B134; margin-top: 6px; }
+@keyframes heat { from { filter: drop-shadow(0 0 8px rgba(226,112,58,.55)); } to { filter: drop-shadow(0 0 20px rgba(242,177,52,.9)) drop-shadow(0 0 54px rgba(226,112,58,.5)); } }
+.date.slam { animation: lift .95s cubic-bezier(.2, 1.15, .3, 1), heat 2.4s .95s ease-in-out infinite alternate; }
+@keyframes lift { 0% { transform: translateY(120px) scale(.72); filter: blur(7px) brightness(2); } 60% { transform: translateY(-14px) scale(1.04); filter: none; } 100% { transform: none; } }
 .legend { display: grid; gap: 6px; max-width: 38ch; margin-top: 6px; }
-.legend p { font-family: var(--display); font-size: clamp(26px, 4.6vw, 44px); line-height: 1; letter-spacing: .03em; text-wrap: balance; }
-.legend p:nth-child(1) { color: var(--clay); } .legend p:nth-child(2) { color: var(--lime); } .legend p:nth-child(3) { color: var(--ink); }
+.legend p { font-family: var(--display); font-size: clamp(26px, 4.6vw, 44px); line-height: 1; letter-spacing: .03em; text-wrap: balance; color: var(--ink); text-shadow: 0 2px 14px rgba(6,16,12,.9); }
+.legend p:nth-child(3) { color: #F2B134; }
+.legend .cA { color: var(--clay); } .legend .cB { color: var(--lime); }
 .legend.play p { animation: rise .7s cubic-bezier(.2, .8, .2, 1) backwards; }
 .legend.play p:nth-child(2) { animation-delay: .5s; } .legend.play p:nth-child(3) { animation-delay: 1s; }
 @keyframes rise { from { opacity: .2; transform: translateY(12px); } }
-.storm .cd { margin-top: 10px; }
-.storm .cd div { background: rgba(10,23,18,.72); backdrop-filter: blur(4px); border-color: rgba(215,234,70,.4); }
-.storm .cd .sec b { animation: tick 1s steps(1) infinite; }
-@keyframes tick { 0% { color: var(--lime); } 20% { color: var(--ink); } }
+.volc .cd { margin-top: 10px; }
+.volc .cd div { background: rgba(10,14,11,.78); backdrop-filter: blur(4px); border-color: rgba(226,112,58,.55); }
+.volc .cd .sec b { animation: tick 1s steps(1) infinite; }
+@keyframes tick { 0% { color: #F2B134; } 20% { color: var(--ink); } }
+.holders .pair { display: flex; gap: 14px; align-items: center; }
 
 footer { margin-top: 90px; border-top: 1px solid var(--line); padding: 30px 0 60px; color: var(--muted); font-size: 14px; }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
@@ -238,16 +254,16 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .tm svg { width: 58px; }
   .tl { padding-left: 30px; } .fx::before { left: -29px; } .tl::before { left: 7px; }
   .court { width: 150%; }
-  .storm { padding: 40px 14px 30px; }
-  .storm .cd { gap: 8px; flex-wrap: nowrap; width: 100%; }
-  .storm .cd div { min-width: 0; flex: 1; padding: 10px 4px; }
-  .storm .cd b { font-size: 36px; }
-  .faceoff .arc { height: 44px; }
+  .volc { padding: 36px 14px calc(var(--mh) + 14px); }
+  .volc .cd { gap: 8px; flex-wrap: nowrap; width: 100%; }
+  .volc .cd div { min-width: 0; flex: 1; padding: 10px 4px; }
+  .volc .cd b { font-size: 36px; }
+  .holders .pair svg { width: 64px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ticker div { animation: none; }
-  .date, .date.slam, .storm.shake .date, .arc .c, .legend.play p, .storm .cd .sec b { animation: none; }
-  .date { text-shadow: 0 0 14px rgba(215,234,70,.8), 0 0 50px rgba(215,234,70,.4); }
+  .date, .date.slam, .volc.rumble .volc-in, .volc.erupt .volc-in, .glow, .lava, .hs.now i, .legend.play p, .volc .cd .sec b { animation: none; }
+  .date { filter: drop-shadow(0 0 14px rgba(242,177,52,.7)); }
   * { transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
 </style>
@@ -321,17 +337,17 @@ const DATA = {
     B: { name: "Ben & Fabio",  members: ["Ben", "Fabio"],  initials: ["B", "F"] }
   },
   sessions: [
-    { id: 1, label: "Opening Clásico", date: null, matchesA: 2, matchesB: 1 }
+    { id: 1, label: "Opening Clásico", date: null, matchesA: 2, matchesB: 1 },
+    { id: 2, label: "The Rematch", date: "2026-11-18", matchesA: 1, matchesB: 2 }
   ],
   nextMatch: {
     options: ["2026-11-18", "2026-11-25"],
-    confirmed: "2026-11-18",
-    time: "20:00"
+    confirmed: "2026-12-04",
+    time: "19:00"
   },
   ticker: [
     "FRIENDS OFF COURT, RIVALS BETWEEN THE GLASS",
-    "HISTORY IS WRITTEN IN GOLDEN POINTS",
-    "TEMPORADA 1 · JORNADA 2"
+    "HISTORY IS WRITTEN IN GOLDEN POINTS"
   ]
 };
 
@@ -403,7 +419,7 @@ function renderScore() {
 function renderTicker() {
   const nm = DATA.nextMatch;
   const when = nm.confirmed ? `NEXT CLÁSICO ${fmtDate(nm.confirmed)}${nm.time ? " · " + fmtTime(nm.time).replace(":00", "") : ""}` : `NEXT CLÁSICO ${nm.options.map(fmtDate).join(" OR ")}`;
-  const items = [when, `${TEAMS.A.name.toUpperCase()} ${S.mA} – ${S.mB} ${TEAMS.B.name.toUpperCase()}`, ...DATA.ticker];
+  const items = [when, `${TEAMS.A.name.toUpperCase()} ${S.mA} – ${S.mB} ${TEAMS.B.name.toUpperCase()}`, ...DATA.ticker, `TEMPORADA 1 · JORNADA ${S.log.length + 1}`];
   const row = items.map(t => `<span>${t}</span>`).join("");
   $("ticker").innerHTML = row + row + row + row;
 }
@@ -413,22 +429,35 @@ function renderNext() {
   const nm = DATA.nextMatch, w = $("nextwrap");
   if (nm.confirmed) {
     const d = parse(nm.confirmed);
-    const h = holder, ch = h ? (h === "A" ? "B" : "A") : null, st = h ? S["st" + h] : 0;
-    const lines = h && st
-      ? [`Can ${TEAMS[h].name} make it ${NUM[st + 1] || st + 1}?`, `Will ${TEAMS[ch].name} change history?`]
-      : [`Who blinks first, ${TEAMS.A.name}?`, `Will ${TEAMS.B.name} change history?`];
-    lines.push(`One night. ${DAYS_LONG[d.getDay()].charAt(0) + DAYS_LONG[d.getDay()].slice(1).toLowerCase()} the ${ordinal(d.getDate())}. We find out.`);
-    const zig = "M0 28 L26 10 L50 44 L78 6 L106 46 L134 12 L162 44 L190 8 L216 40 L240 28";
+    const n = S.log.length + 1, lastS = S.log[S.log.length - 1];
+    const wk = DAYS_LONG[d.getDay()].charAt(0) + DAYS_LONG[d.getDay()].slice(1).toLowerCase();
+    const cls = k => (k === "A" ? "cA" : "cB");
+    const lines = lastS && lastS.winner
+      ? [`The pressure is building.`,
+         `<span class="${cls(lastS.buyer)}">${TEAMS[lastS.buyer].name}</span> want revenge. <span class="${cls(lastS.winner)}">${TEAMS[lastS.winner].name}</span> want the crown.`,
+         `${wk} the ${ordinal(d.getDate())}, it erupts.`]
+      : [`The pressure is building.`, `Everything is still to play for.`, `${wk} the ${ordinal(d.getDate())}, it erupts.`];
+    const names = ["Simmering", "Boiling", "Erupting"], first = Math.max(1, n - 2);
+    const stages = [0, 1, 2].map(i => ({ n: first + i, label: names[i], state: first + i < n ? "done" : first + i === n ? "now" : "next" })).filter(x => x.n <= n);
     w.innerHTML = `
-      <div class="eyebrow">Matchday confirmed · Jornada ${S.log.length + 1}</div>
+      <div class="eyebrow">Matchday confirmed · Jornada ${n}</div>
       <h2 class="sec">¡Hay Clásico!</h2>
-      <div class="storm" id="storm">
-        <canvas id="bolt" aria-hidden="true"></canvas><div class="flash" id="flash" aria-hidden="true"></div>
-        <div class="storm-in">
-          <div class="faceoff">${crest(COLOR.A, TEAMS.A.initials).replace("<svg ", '<svg class="crest" ')}
-            <svg class="arc" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true"><path class="g" d="${zig}"/><path class="c" d="${zig}"/></svg>
-            ${crest(COLOR.B, TEAMS.B.initials).replace("<svg ", '<svg class="crest" ')}</div>
-          <button type="button" class="date" id="dateBtn" aria-label="${fmtDate(nm.confirmed)}${nm.time ? " at " + fmtTime(nm.time) : ""}. Tap for lightning.">
+      <div class="volc" id="volc">
+        <canvas id="lava" aria-hidden="true"></canvas><div class="vflash" id="vflash" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <svg class="mount" id="mount" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="lavag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2c8"/><stop offset=".4" stop-color="#F2B134"/><stop offset="1" stop-color="#E2703A"/></linearGradient>
+          <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a140b"/><stop offset=".35" stop-color="#120a07"/><stop offset="1" stop-color="#070605"/></linearGradient></defs>
+          <path d="M0 200 L0 152 C120 142 220 122 320 86 C390 60 430 44 462 40 L478 48 L522 48 L538 40 C570 44 610 60 680 86 C780 122 880 142 1000 152 L1000 200 Z" fill="url(#rock)"/>
+          <path d="M478 48 C470 84 446 104 436 156 L432 200" class="lava"/><path d="M522 48 C532 80 560 108 566 150 L574 200" class="lava" style="animation-delay:-1.2s"/>
+          <path d="M500 50 C498 90 506 120 500 200" class="lava" style="animation-delay:-.6s" opacity=".7"/>
+        </svg>
+        <div class="volc-in">
+          <div class="heat" role="img" aria-label="Rivalry heat: ${stages.map(x => `Jornada ${x.n} ${x.label.toLowerCase()}`).join(", ")}">
+            ${stages.map(x => `<div class="hs ${x.state}"><i></i><b>Jornada ${x.n}</b><span>${x.label}${x.state === "done" ? " ✓" : ""}</span></div>`).join("")}
+          </div>
+          <div class="faceoff">${crest(COLOR.A, TEAMS.A.initials).replace("<svg ", '<svg class="crest" ')}<div class="vsx">VS</div>${crest(COLOR.B, TEAMS.B.initials).replace("<svg ", '<svg class="crest" ')}</div>
+          <button type="button" class="date" id="dateBtn" aria-label="${fmtDate(nm.confirmed)}${nm.time ? " at " + fmtTime(nm.time) : ""}. Tap for an eruption.">
             <span class="dow">${DAYS_LONG[d.getDay()]}</span><span class="dd">${d.getDate()} ${MONTHS[d.getMonth()].toUpperCase()}</span>${nm.time ? `<span class="tm">${fmtTime(nm.time)}</span>` : ""}
           </button>
           <div class="legend" id="legend">${lines.map(l => `<p>${l}</p>`).join("")}</div>
@@ -439,10 +468,10 @@ function renderNext() {
     const tick = () => {
       const ms = Math.max(0, target() - new Date());
       const v = [["Days", Math.floor(ms / 864e5), ""], ["Hours", Math.floor(ms / 36e5) % 24, ""], ["Min", Math.floor(ms / 6e4) % 60, ""], ["Sec", Math.floor(ms / 1e3) % 60, "sec"]];
-      $("cd").innerHTML = v.map(([l, n, c]) => `<div class="${c}"><b class="tabular">${String(n).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
+      $("cd").innerHTML = v.map(([l, c, k]) => `<div class="${k}"><b class="tabular">${String(c).padStart(2, "0")}</b><small>${l}</small></div>`).join("");
     };
     tick(); setInterval(tick, 1000);
-    initStorm();
+    initVolcano();
     return;
   }
   const ticket = (s, side) => {
@@ -459,66 +488,70 @@ function renderNext() {
     <div class="vote-note">${chat}<span>Vote in the WhatsApp group to lock the date.</span></div>`;
 }
 
-/* ---------- lightning ---------- */
-function initStorm() {
-  const box = $("storm"), cv = $("bolt"), fl = $("flash"), date = $("dateBtn"), legend = $("legend");
+/* ---------- volcano ---------- */
+function initVolcano() {
+  const box = $("volc"), cv = $("lava"), fl = $("vflash"), date = $("dateBtn"), legend = $("legend"), mt = $("mount");
   if (!box || !cv) return;
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const ctx = cv.getContext("2d");
-  let W = 0, H = 0, bolts = [], running = false, visible = false, started = false;
+  let W = 0, H = 0, cx = 0, cy = 0, parts = [], smoke = [], rings = [], visible = false, started = false, raf = 0, last = 0, acc = 0;
+  const small = () => W < 560;
   const size = () => {
-    const r = box.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = box.getBoundingClientRect(), m = mt.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = W / 2; cy = m.top - r.top + m.height * .22;
   };
   size(); window.addEventListener("resize", size);
-  const jag = (x0, y0, x1, y1, disp, out) => {
-    if (disp < 4) { out.push([x1, y1]); return; }
-    const mx = (x0 + x1) / 2 + (Math.random() - .5) * disp, my = (y0 + y1) / 2 + (Math.random() - .5) * disp * .4;
-    jag(x0, y0, mx, my, disp / 2, out); jag(mx, my, x1, y1, disp / 2, out);
-  };
-  const make = () => {
-    const x0 = W * (.12 + Math.random() * .76), x1 = x0 + (Math.random() - .5) * W * .28, y1 = H * (.5 + Math.random() * .22);
-    const main = [[x0, -10]]; jag(x0, -10, x1, y1, H * .34, main);
-    const branches = [];
-    for (let i = 0; i < 3; i++) {
-      const k = Math.floor(main.length * (.2 + Math.random() * .55)), [bx, by] = main[k], b = [[bx, by]];
-      jag(bx, by, bx + (Math.random() - .5) * W * .3, by + H * (.14 + Math.random() * .24), H * .15, b); branches.push(b);
+  const burst = power => {
+    const n = Math.round((small() ? 40 : 84) * power) + 6, k = small() ? .8 : 1;
+    for (let i = 0; i < n; i++) {
+      const a = -Math.PI / 2 + (Math.random() - .5) * 1.2, sp = (300 + Math.random() * 420) * power * k;
+      parts.push({ x: cx + (Math.random() - .5) * 50, y: cy, px: cx, py: cy, vx: Math.cos(a) * sp * .55, vy: Math.sin(a) * sp, g: 520, life: 1.5 + Math.random() * 1.6, age: 0, r: 1.8 + Math.random() * 3.6 * power, bomb: Math.random() < .28 });
     }
-    return { main, branches, born: performance.now(), life: 560, color: Math.random() < .72 ? "#D7EA46" : "#E2703A" };
+    for (let i = 0; i < Math.round(7 * power); i++) smoke.push({ x: cx + (Math.random() - .5) * 70, y: cy, vx: (Math.random() - .5) * 34, vy: -(30 + Math.random() * 60), r: 18 + Math.random() * 22, age: 0, life: 3 + Math.random() * 2 });
+    rings.push({ age: 0, life: .9 });
+    if (parts.length > 460) parts.splice(0, parts.length - 460);
   };
-  const path = pts => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); };
-  const frame = now => {
+  const update = dt => {
+    acc += dt * (small() ? 9 : 16);
+    while (acc > 1) { acc--; parts.push({ x: cx + (Math.random() - .5) * 80, y: cy, px: cx, py: cy, vx: (Math.random() - .5) * 50, vy: -(70 + Math.random() * 160), g: 60, life: 2.4 + Math.random() * 2.2, age: 0, r: .8 + Math.random() * 1.1, bomb: false }); }
+    parts.forEach(p => { p.age += dt; p.px = p.x; p.py = p.y; p.vy += p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; });
+    parts = parts.filter(p => p.age < p.life && p.y < H + 40);
+    smoke.forEach(s => { s.age += dt; s.x += s.vx * dt; s.y += s.vy * dt; });
+    smoke = smoke.filter(s => s.age < s.life);
+    rings.forEach(r => r.age += dt); rings = rings.filter(r => r.age < r.life);
+  };
+  const draw = () => {
     ctx.clearRect(0, 0, W, H);
-    bolts = bolts.filter(b => now - b.born < b.life);
-    bolts.forEach(b => {
-      const age = (now - b.born) / b.life;
-      let a = age < .12 ? 1 : Math.max(0, 1 - (age - .12) / .88);
-      if (age > .14 && age < .4 && Math.floor(age * 28) % 2) a *= .5;
-      ctx.lineJoin = "round"; ctx.lineCap = "round";
-      [[b.main, 1], ...b.branches.map(x => [x, .55])].forEach(([pts, k]) => {
-        ctx.shadowColor = b.color; ctx.shadowBlur = 26 * k;
-        ctx.strokeStyle = b.color; ctx.globalAlpha = a * .55; ctx.lineWidth = 6 * k; path(pts);
-        ctx.shadowBlur = 8; ctx.strokeStyle = "#fff"; ctx.globalAlpha = a; ctx.lineWidth = 2 * k; path(pts);
-      });
-      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    ctx.globalCompositeOperation = "source-over";
+    smoke.forEach(s => { const t = s.age / s.life; ctx.fillStyle = `rgba(60,38,30,${.26 * (1 - t)})`; ctx.beginPath(); ctx.arc(s.x, s.y, s.r * (1 + t * 3.2), 0, 6.283); ctx.fill(); });
+    rings.forEach(r => { const t = r.age / r.life, rx = t * W * .55; ctx.strokeStyle = `rgba(242,177,52,${(1 - t) * .75})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(cx, cy + 6, rx, rx * .16, 0, 0, 6.283); ctx.stroke(); });
+    ctx.globalCompositeOperation = "lighter";
+    parts.forEach(p => {
+      const t = p.age / p.life, hue = 46 - 32 * t, lum = 88 - 42 * t, a = Math.max(0, 1 - t * t);
+      if (p.bomb) { ctx.strokeStyle = `hsla(${hue},100%,${lum}%,${a * .5})`; ctx.lineWidth = p.r * .9; ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke(); ctx.fillStyle = `hsla(${hue},100%,60%,${a * .16})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3.4, 0, 6.283); ctx.fill(); }
+      ctx.fillStyle = `hsla(${hue},100%,${lum}%,${a})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
     });
-    if (bolts.length) requestAnimationFrame(frame); else { running = false; ctx.clearRect(0, 0, W, H); }
+    ctx.globalCompositeOperation = "source-over";
   };
-  const strike = () => {
-    size(); bolts.push(make());
-    if (Math.random() < .5) setTimeout(() => { bolts.push(make()); }, 110);
-    fl.classList.remove("on"); void fl.offsetWidth; fl.classList.add("on");
-    box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
-    if (!running) { running = true; requestAnimationFrame(frame); }
+  const frame = t => {
+    if (!visible) { raf = 0; return; }
+    const dt = Math.min(.05, (t - last) / 1000 || .016); last = t;
+    update(dt); draw(); raf = requestAnimationFrame(frame);
   };
-  const loop = () => setTimeout(() => { if (visible && !document.hidden) strike(); loop(); }, 3800 + Math.random() * 3600);
-  date.addEventListener("click", strike);
+  const run = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+  const flash = () => { fl.classList.remove("on"); void fl.offsetWidth; fl.classList.add("on"); box.classList.remove("erupt"); void box.offsetWidth; box.classList.add("erupt"); setTimeout(() => box.classList.remove("erupt"), 900); };
+  const erupt = big => {
+    size(); run();
+    if (big) { box.classList.add("rumble"); setTimeout(() => { box.classList.remove("rumble"); burst(1); flash(); }, 450); }
+    else { burst(.42); fl.classList.remove("on"); void fl.offsetWidth; fl.classList.add("on"); }
+  };
+  const loop = () => setTimeout(() => { if (visible && !document.hidden) erupt(false); loop(); }, 4200 + Math.random() * 2800);
+  date.addEventListener("click", () => erupt(true));
   new IntersectionObserver(es => es.forEach(e => {
     visible = e.isIntersecting;
-    if (visible && !started) { started = true; date.classList.add("slam"); legend.classList.add("play"); setTimeout(strike, 120); loop(); }
-  }), { threshold: .35 }).observe(box);
-  window.__strike = strike;
+    if (visible) { run(); if (!started) { started = true; date.classList.add("slam"); legend.classList.add("play"); erupt(true); loop(); } }
+  }), { threshold: .3 }).observe(box);
 }
 
 /* ---------- the record ---------- */
@@ -528,7 +561,8 @@ function renderRecord() {
   $("holders").innerHTML = h
     ? `<span class="crown">Current holders</span>${crest(COLOR[h], TEAMS[h].initials)}<div class="who">${TEAMS[h].name}</div>
        <div class="line">${S["s" + h]} ${S["s" + h] === 1 ? "session" : "sessions"} won · ${S["m" + h]} matches won</div>`
-    : `<span class="crown">Level</span><div class="who">All square</div>`;
+    : `<span class="crown">All square</span><div class="pair">${crest(COLOR.A, a.initials)}${crest(COLOR.B, b.initials)}</div><div class="who">Level at ${S.mA}–${S.mB}</div>
+       <div class="line">${S.sA} ${S.sA === 1 ? "session" : "sessions"} each · ${S.mA} matches each</div>`;
   const row = (lab, av, bv, fa, fb) => {
     const max = Math.max(av, bv, 1);
     return `<div class="tr">
